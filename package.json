@@ -9,7 +9,7 @@
   "author": "Your Name",
   "license": "ISC",
   "dependencies": {
-    "inquirer": "^6.3.1"
+    "inquirer": "^9.2.11"
   },
   "type": "module",
   "engines": {

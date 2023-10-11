@@ -1,8 +1,7 @@
 import inquirer from 'inquirer';
-import fs from 'fs';
-import generateMarkdown from './utils/generateMarkdown';
-
-const { error } = require('console');
+import fs from 'fs/promises'; 
+import generateMarkdown from './utils/generateMarkdown.js'; 
+import { error } from 'console';
 
 
 const questions = [
@@ -60,14 +59,19 @@ const questions = [
   ];
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-    fs.writeFileSync(fileName, data);
+async function writeToFile(fileName, data) {
+  try {
+      await fs.writeFile(fileName, data);
+      console.log(`${fileName} successfully written!`);
+  } catch (err) {
+      console.error(err);
+  }
 }
 
 // TODO: Create a function to initialize app
 function init() {
     inquirer
-        .createPromptModule(questions)
+        .createPromptModule()(questions)
         .then((answers)=> {
             const readmeContent = generateMarkdown(answers);
             writeToFile('README.md', readmeContent);
